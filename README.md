@@ -5,5 +5,5 @@
 
 # ERD
 ## the following shows an erd and explains the relations between the models 
-
-![Alt text] (relative/path/to/ERD.png)
+ 
+ ![ERDIMAGE](ERD.png)
