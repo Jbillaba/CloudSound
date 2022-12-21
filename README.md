@@ -4,6 +4,5 @@
 ------------------
 
 # ERD
-## the following shows an erd and explains the relations between the models 
  
  ![ERDIMAGE](ERD.png)
