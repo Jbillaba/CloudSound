@@ -16,6 +16,7 @@ class User(models.Model):
 
 class Song(models.Model):
 <<<<<<< HEAD
+<<<<<<< HEAD
     id = models.UUIDField(primary_key=True, default=generateUUID, editable=False)
     name = models.CharField(max_length=100)
     artist = models.CharField(max_length=225)
@@ -26,6 +27,10 @@ class Song(models.Model):
 
     def __str__(self):
         return self.name
+=======
+    name = models.CharField(max_length=100)
+
+>>>>>>> parent of 472b8b9 (set up the models testing)
 =======
     name = models.CharField(max_length=100)
 
