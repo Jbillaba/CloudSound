@@ -80,6 +80,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'cloudsound_django.wsgi.application'
 
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
