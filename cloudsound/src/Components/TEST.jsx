@@ -9,9 +9,9 @@ export default function Test() {
 
     useEffect(() => {
         const getSongs = async () => {
-            const response = await axios.get(`${BASE_URL_SONGS}`)
-            setSongs(response.data.song)
-            console.log(response.data.song)
+            const response = await axios.get("http://localhost:8000/songs/")
+            setSongs(response.data)
+            console.log(response.data)
         }
         
         getSongs()
