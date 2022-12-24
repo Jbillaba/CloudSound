@@ -25,7 +25,7 @@ export default function Test() {
         <div>
             <h2> this is a test to see if the audio works from the database </h2>
             <h2>{songs.name}</h2>
-            <audio src={songs.audio_file}></audio>
+            <audio controls src={songs.audio_file}></audio>
         </div>
 
     )

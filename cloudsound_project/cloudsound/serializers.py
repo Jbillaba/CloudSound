@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from .models import Song, User
+from .models import Song, User, playlist
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     song = serializers.HyperlinkedRelatedField(
@@ -19,4 +19,15 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     )
     class Meta :
         model = User
-        fields = ('id', 'user', 'name', 'email')
+        fields = ('id', 'user', 'name', 'email', 'password')
+
+
+class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
+    playlist = serializers.HyperlinkedRelatedField(
+        view_name = 'playlist_detail',
+        many = True,
+        read_only = True
+    )
+    class Meta :
+        model = playlist
+        fields = ('id','playlist','name', 'creator','songs')
