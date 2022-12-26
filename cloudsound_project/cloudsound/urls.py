@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views 
 from django.views.debug import default_urlconf
 
 urlpatterns = [
@@ -13,5 +13,4 @@ urlpatterns = [
     path('playlists/', views.PlaylistList.as_view(), name='playlist_list'),
     path('playlists/<uuid:pk>', views.PlaylistDetail.as_view(), name="playlist_detail"),
     path('playlists/<str:name>', views.PlaylistDetail.as_view(), name="playlist_detail"),
-
 ]
