@@ -1,16 +1,52 @@
-from django.urls import path
-from . import views 
-from django.views.debug import default_urlconf
+from rest_framework.routers import DefaultRouter
+from django.urls import path, include
+from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet
+from . import views
+
+song_list = SongViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+song_detail = SongViewSet.as_view({
+    'get': 'retrieve', 
+    'put': 'update', 
+    'patch' : 'partial_update', 
+    'delete': 'destroy'
+})
+
+user_list = UserViewSet.as_view({
+    'get': 'list', 
+    'post': 'create'
+})
+
+user_detail = UserViewSet.as_view({
+    'get' : 'retrieve', 
+    'put' : 'update', 
+    'patch': 'partial_update', 
+    'delete': 'destroy'
+})
+
+playlist_list = PlaylistViewSet.as_view({
+    'get': 'list', 
+    'post': 'create'
+})
+
+playlist_detail = PlaylistViewSet.as_view({
+    'get' : 'retrieve', 
+    'put' : 'update', 
+    'patch': 'partial_update', 
+    'delete': 'destroy'
+})
+router = DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'songs', views.SongViewSet)
+router.register(r'playlists', views.PlaylistViewSet)
 
 urlpatterns = [
-    path('', default_urlconf),
-    path('songs/', views.SongList.as_view(), name='song_list'),
-    path('songs/<uuid:pk>', views.SongDetail.as_view(), name='song_detail'),
-    path('songs/<str:name>', views.SongDetail.as_view(), name='song_detail'),
-    path('users/', views.UserList.as_view(), name='user_list'),
-    path('users/<uuid:pk>', views.UserDetail().as_view(), name='user_detail'),
-    path('users/<str:name>', views.UserDetail().as_view(), name='user_detail'),
-    path('playlists/', views.PlaylistList.as_view(), name='playlist_list'),
-    path('playlists/<uuid:pk>', views.PlaylistDetail.as_view(), name="playlist_detail"),
-    path('playlists/<str:name>', views.PlaylistDetail.as_view(), name="playlist_detail"),
+  path('', include(router.urls))
 ]
+
+
+
+

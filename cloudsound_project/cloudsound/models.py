@@ -1,6 +1,5 @@
 from django.db import models
 from uuid import uuid4
-from django.contrib.postgres.fields import ArrayField
 def generateUUID():
     return str(uuid4())
 # Create your models here.
