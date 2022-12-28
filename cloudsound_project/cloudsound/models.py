@@ -16,6 +16,7 @@ class Song(models.Model):
     id = models.UUIDField(primary_key=True, default=generateUUID, editable=False)
     name = models.SlugField(max_length=100)
     uploader = models.ForeignKey(User, on_delete=models.CASCADE, related_name="artist" )
+    image = models.FileField(upload_to='./image/', default='./image/default-cover-art.png')
     audio_file = models.FileField(upload_to='./media/')
     created_on = models.DateTimeField(auto_now_add=True)
 

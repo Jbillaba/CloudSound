@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet
 from . import views
-
+# nasty bug wouldnt properly display the data nearly a week later i fixed it with the help of this article https://www.django-rest-framework.org/tutorial/6-viewsets-and-routers/#binding-viewsets-to-urls-explicitly 
 song_list = SongViewSet.as_view({
     'get': 'list',
     'post': 'create'
