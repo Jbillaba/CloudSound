@@ -24,8 +24,19 @@ export default function Discover () {
         return <h2> Thats Awkward, Sorry Were Loading Songs...</h2>
     }
     return (
-        <div>
+        <div className="discover-container">
             <h1> this is the discover page </h1>
+            <div className="discover-grid">
+                {
+                    songs.map((song) => (
+                        <div className="song-card" key={song.id}>
+                        <h2>{song.name}</h2>
+                        <h3>{song.uploader}</h3>
+                        <audio src={song.audio_file} controls></audio>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
     )
 }
