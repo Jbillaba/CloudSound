@@ -7,15 +7,13 @@ import axios from "axios"
 export default function Discover () {
 
     let navigate = useNavigate()
-    const showSongs = (song) => {
-        navigate(`/songs/${song.id}`)
-    }
+ 
 
     const [ songs, setSongs ] = useState(null)
 
     useEffect(() => {
         const getSongs = async () => {
-            const response = await axios.get({BASE_URL_SONGS})
+            const response = await axios.get(`${BASE_URL_SONGS}`)
             setSongs(response.data)
             console.log(response.data)
         }
