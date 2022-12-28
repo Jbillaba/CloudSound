@@ -1,1 +1,1 @@
-export const BASE_URL_SONGS = 'http://localhost:8000/songs/b518e3f2-9254-405b-96be-440daedfc036' 
+export const BASE_URL_SONGS = 'http://localhost:8000/songs/' 
