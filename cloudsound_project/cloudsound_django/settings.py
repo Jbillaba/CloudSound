@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from decouple import config 
+from storages.backends.s3boto3 import S3Boto3Storage
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -157,23 +160,18 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Turns out django storing files is absolute garbage so i used AWS S3 instead i followed this tutorial for the set up to upload the files https://www.section.io/engineering-education/how-to-upload-files-to-aws-s3-using-django-rest-framework/#integrating-aws-s3-into-the-django-api-application
 
-
-# for AWS USE 
-
-
+# aws usage 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS')
 AWS_SECRET_ACCESS_KEY = config('AWS_SaK')
 AWS_STORAGE_BUCKET_NAME = 'cloudsoundbucket'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-AWS_S3_OBJECT_PARAMETERS = {
-    'cachecontrol' : 'max-age=86400',
-}
-AWS_LOCATION = 'static'
-
+AWS_S3_REIGON_NAME = 'us-east-2'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'cloudsound/static'),
 ]
-
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILE_STORAGE = 'storages.backends.s3boto3.s3boto3storage'
