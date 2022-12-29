@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { BASE_URL_SONGS } from "../globals"
 import axios from "axios"
 import comet from './images/Shape01.png'
+
 // this is the landing page for signed in "state"
 
 export default function Discover () {
@@ -42,6 +43,7 @@ export default function Discover () {
                     ))
                 }
             </div>
+
         </div>
     )
 }
