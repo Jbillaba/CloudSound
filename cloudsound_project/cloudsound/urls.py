@@ -1,5 +1,7 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet
 from . import views
 # nasty bug wouldnt properly display the data nearly a week later i fixed it with the help of this article https://www.django-rest-framework.org/tutorial/6-viewsets-and-routers/#binding-viewsets-to-urls-explicitly 
@@ -45,8 +47,9 @@ router.register(r'playlists', views.PlaylistViewSet)
 
 urlpatterns = [
   path('', include(router.urls))
-]
-
+] 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 

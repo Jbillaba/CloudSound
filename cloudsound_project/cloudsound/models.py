@@ -6,7 +6,7 @@ def generateUUID():
 
 class User(models.Model):
     id = models.UUIDField(primary_key=True, default=generateUUID, editable=False)
-    name = models.SlugField(max_length=100)
+    name = models.CharField(max_length=100)
     email = models.EmailField(max_length=200)
     password = models.CharField(max_length=50)
     def __str__(self):
@@ -14,7 +14,7 @@ class User(models.Model):
 
 class Song(models.Model):
     id = models.UUIDField(primary_key=True, default=generateUUID, editable=False)
-    name = models.SlugField(max_length=100)
+    name = models.CharField(max_length=100)
     uploader = models.ForeignKey(User, on_delete=models.CASCADE, related_name="artist" )
     image = models.FileField(upload_to='./image/', default='./image/default-cover-art.png')
     audio_file = models.FileField(upload_to='./media/')
@@ -25,8 +25,9 @@ class Song(models.Model):
 
 class playlist(models.Model):
     id = models.UUIDField(primary_key=True, default=generateUUID, editable=False)
-    name = models.SlugField (max_length=100)
+    name = models.CharField (max_length=100)
     songs = models.ManyToManyField(Song, related_name='song_in_playlist')
+    image = models.FileField(upload_to='./image/', default='./image/default-cover-art.png')
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator' )
 
     def __str__(self):

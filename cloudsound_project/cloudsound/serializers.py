@@ -20,7 +20,7 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
     )
     class Meta :
         model = Song
-        fields = ('id', 'song', 'name', 'uploader', 'audio_file', 'created_on')
+        fields = ('id', 'song', 'image', 'name', 'uploader', 'audio_file', 'created_on')
 
 class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
     playlist = serializers.HyperlinkedRelatedField(
@@ -30,5 +30,5 @@ class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
     )
     class Meta :
         model = playlist
-        fields = ('id','playlist','name', 'creator','songs')
+        fields = ('id','playlist', 'image', 'name', 'creator','songs')
 
