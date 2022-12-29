@@ -8,6 +8,10 @@ django = "*"
 psycopg2-binary = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+pillow = "*"
+boto3 = "*"
+django-storages = "*"
+python-decouple = "*"
 
 [dev-packages]
 

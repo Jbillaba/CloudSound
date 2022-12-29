@@ -20,7 +20,12 @@ export default function Discover () {
     }, [])
 
     if(!songs){
-        return <h2> Thats Awkward, Sorry Were Loading Songs...</h2>
+        return(
+            <div>
+                <h2> Thats Awkward, Sorry Were Loading Songs...</h2>
+                <img src="" alt="" />
+            </div>
+        ) 
     }
     return (
         <div className="discover-container">
