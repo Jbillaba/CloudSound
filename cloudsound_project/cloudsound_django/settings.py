@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'cloudsound',
     'rest_framework',
     'corsheaders',
-    'pillow'
+    'PIL'
 ]
 
 REST_FRAMEWORK = {
@@ -151,7 +151,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles_cdn')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles_cdn')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
