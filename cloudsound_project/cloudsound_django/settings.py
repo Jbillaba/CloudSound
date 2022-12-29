@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'cloudsound',
     'rest_framework',
     'corsheaders',
-    'PIL'
+    'PIL',
+    'storages',
 ]
 
 REST_FRAMEWORK = {
