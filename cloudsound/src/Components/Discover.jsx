@@ -15,7 +15,6 @@ export default function Discover () {
         const getSongs = async () => {
             const response = await axios.get(`${BASE_URL_SONGS}`)
             setSongs(response.data)
-            console.log(response.data)
         }
         getSongs()
     }, [])
@@ -32,7 +31,6 @@ export default function Discover () {
                         <div className="song-card" key={song.id}>
                         <img src={song.image} alt="song image" />
                         <h2>{song.name}</h2>
-                        <h3>{song.uploader}</h3>
                         <audio src={song.audio_file} controls></audio>
                         </div>
                     ))
