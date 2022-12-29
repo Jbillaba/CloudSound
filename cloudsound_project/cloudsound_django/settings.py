@@ -146,10 +146,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'project_staticfiles')
-]
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles_cdn')
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
@@ -158,3 +155,23 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# for AWS USE 
+
+
+AWS_ACCESS_KEY_ID = NULL
+AWS_SECRET_ACCESS_KEY = NULL
+AWS_STORAGE_BUCKET_NAME = 'cloudsoundbucket'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'cachecontrol' : 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'cloudsound/static'),
+]
+
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILE_STORAGE = 'storages.backends.s3boto3.s3boto3storage'
