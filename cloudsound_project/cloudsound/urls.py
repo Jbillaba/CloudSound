@@ -51,6 +51,9 @@ urlpatterns = [
   path('', include(router.urls)),
   path('admin/', admin.site.urls),
   path('api/', include('rest_framework.urls')),
+  path("login", views.login, name="login"),
+  path("logout", views.logout, name="logout"),
+  path("callback", views.callback, name="callback")
 
 ] 
 if settings.DEBUG:
