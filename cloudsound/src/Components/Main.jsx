@@ -13,7 +13,6 @@ export default function Main () {
                 <Route exact path="/discover" element={<Discover />}/>
                 <Route exact path="/upload" element={<Upload />} />
                 <Route exact path="/user" element={<User />} />
-                <Route exact path="/login" element={<Login />} />
             </Routes>
         </div>
     )
