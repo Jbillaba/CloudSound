@@ -12,6 +12,9 @@ export default function NavBar () {
         <Link to='/user'>
             <h2>User</h2>
         </Link>
+        <Link to='/login'>
+            <h2>Login</h2>
+        </Link>
         <Link to='/'>
             <h2>Debug</h2>
         </Link>

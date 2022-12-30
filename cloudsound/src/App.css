@@ -19,7 +19,7 @@
   }
 }
 .nav-bar{
-  display: inline-flex;
+  display: inline-block;
 }
 .discover-grid {
   display: grid;

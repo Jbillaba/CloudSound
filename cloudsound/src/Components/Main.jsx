@@ -3,6 +3,7 @@ import Discover from "./Discover";
 import Upload from "./Upload";
 import Debug from "./Debug";
 import User from "./User";
+import Login from "./Login";
 
 export default function Main () {
     return (
@@ -12,6 +13,7 @@ export default function Main () {
                 <Route exact path="/discover" element={<Discover />}/>
                 <Route exact path="/upload" element={<Upload />} />
                 <Route exact path="/user" element={<User />} />
+                <Route exact path="/login" element={<Login />} />
             </Routes>
         </div>
     )
