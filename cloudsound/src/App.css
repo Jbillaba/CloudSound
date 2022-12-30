@@ -27,7 +27,9 @@
   padding: 0.5em;
   margin: 1em;
 }
-
+.song-img{
+  width: 300px;
+}
 .song-card:hover{
   transform: scale(1.1);
 }

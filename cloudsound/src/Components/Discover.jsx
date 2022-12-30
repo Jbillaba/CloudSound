@@ -38,7 +38,7 @@ export default function Discover () {
                 {
                     songs.map((song) => (
                         <div className="song-card" key={song.id}>
-                        <img src={song.image} alt="song" />
+                        <img className="song-img" src={song.image} alt="song" />
                         <h2>{song.name}</h2>
                         <audio src={song.audio_file} controls></audio>
                         </div>
