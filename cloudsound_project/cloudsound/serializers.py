@@ -3,7 +3,7 @@ from .models import Song, User, playlist
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HyperlinkedRelatedField(
-        view_name = 'user_detail',
+        view_name = 'song_detail',
         many = True,
         read_only = True
     )

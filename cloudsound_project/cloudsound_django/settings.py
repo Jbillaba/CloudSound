@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from decouple import config 
 from storages.backends.s3boto3 import S3Boto3Storage
-
+from dotenv import load_dotenv, find_dotenv 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'cloudsound',
     'rest_framework',
     'corsheaders',
+    # 'core', 
     'PIL',
     'storages',
 ]
@@ -75,6 +77,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000"
