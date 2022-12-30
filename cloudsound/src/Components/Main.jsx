@@ -3,7 +3,6 @@ import Discover from "./Discover";
 import Upload from "./Upload";
 import Debug from "./Debug";
 import User from "./User";
-import Login from "./Login";
 
 export default function Main () {
     return (
