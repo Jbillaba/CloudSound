@@ -6,6 +6,12 @@ from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet
 from . import views
 from django.contrib import admin 
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView
+)
+
+
 # nasty bug wouldnt properly display the data nearly a week later i fixed it with the help of this article https://www.django-rest-framework.org/tutorial/6-viewsets-and-routers/#binding-viewsets-to-urls-explicitly 
 song_list = SongViewSet.as_view({
     'get': 'list',
@@ -51,6 +57,9 @@ urlpatterns = [
   path('', include(router.urls)),
   path('admin/', admin.site.urls),
   path('api/', include('rest_framework.urls')),
+  path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+  path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
+
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
