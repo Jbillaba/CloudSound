@@ -21,6 +21,8 @@ export default function Discover () {
         getSongs()
     }, [])
 
+
+
     if(!songs){
         return(
             <div>
