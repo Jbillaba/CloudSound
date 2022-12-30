@@ -16,7 +16,6 @@ from decouple import config
 from storages.backends.s3boto3 import S3Boto3Storage
 from dotenv import load_dotenv, find_dotenv 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'cloudsound', 'templates')
@@ -33,6 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,10 +46,17 @@ INSTALLED_APPS = [
     'cloudsound',
     'rest_framework',
     'corsheaders',
-    # 'core', 
     'PIL',
     'storages',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

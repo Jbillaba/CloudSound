@@ -51,11 +51,6 @@ urlpatterns = [
   path('', include(router.urls)),
   path('admin/', admin.site.urls),
   path('api/', include('rest_framework.urls')),
-  path('', views.index, name="index"),
-  path("login", views.login, name="login"),
-  path("logout", views.logout, name="logout"),
-  path("callback", views.callback, name="callback")
-
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
