@@ -1,6 +1,7 @@
 from rest_framework import serializers 
 from .models import Song, User, playlist
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HyperlinkedRelatedField(
         view_name = 'song_detail',
