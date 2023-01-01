@@ -10,11 +10,15 @@ import comet from './images/Shape01.png'
 export default function Discover () {
 
     let navigate = useNavigate()
- 
+    
+    const showPlaylist = (id) => {
+        navigate(`/playlists/${id}`)
+    }
 
     const [ songs, setSongs ] = useState(null)
     const [ playlists, setPlaylists ] = useState(null)
 
+    // for songs 
     useEffect(() => {
         const getSongs = async () => {
             const response = await axios.get(`${BASE_URL_SONGS}`)
@@ -23,11 +27,11 @@ export default function Discover () {
         getSongs()
     }, [])
 
+    // for playlists 
     useEffect(() => {
         const getPlaylists = async () => {
             const response = await axios.get(`${BASE_URL_PLAYLISTS}`)
             setPlaylists(response.data)
-            console.log(response.data)
         }
         getPlaylists()
     }, [])
@@ -59,7 +63,7 @@ export default function Discover () {
             <div className="discover-grid">
                 {
                     playlists.map((playlist) => (
-                        <div className="song-card" key={playlist.id}>
+                        <div  onClick={() => showPlaylist(playlist.id)} className="song-card" key={playlist.id}>
                             <img src={playlist.image} alt="playlist" />
                             <h2>{playlist.name}</h2>
                         </div>
