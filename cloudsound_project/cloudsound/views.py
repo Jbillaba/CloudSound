@@ -16,6 +16,8 @@ class SongViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = playlist.objects.all()
@@ -27,11 +29,11 @@ class PlaylistViewSet(viewsets.ModelViewSet):
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
+    def get_token(cls, User):
+        token = super().get_token(User)
 
         # Add custom claims
-        token['email'] = user.email
+        token['email'] = User.email
         # ...
 
         return token 
