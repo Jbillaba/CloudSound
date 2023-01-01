@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import AuthContext from "../context/AuthContext"
-import Player from "./AudioPlayer"
 
 export default function Debug () {
     let {name} = useContext(AuthContext)
