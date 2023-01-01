@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-
+import AudioPlayer from 'react-h5-audio-player' ;
+import  'react-h5-audio-player/lib/styles.css' ;
 
 const PlaylistDetails = () => {
 
@@ -9,6 +10,7 @@ const PlaylistDetails = () => {
     
     const [PlaylistDetails, setPlaylistDetails] = useState(null)
     const [PlaylistSongs, setPlaylistSongs] = useState(null)
+    const [songPlaying, setSongPlaying ] = useState(null)
 
 useEffect(() => {
     const getPlaylistDetails = async () => {
@@ -31,12 +33,15 @@ if(!PlaylistDetails){
       <div>
       {
         PlaylistSongs.map((PlaylistSong) => (
-            <div className='playlist-songs' key={PlaylistSong.id}>
+            <div onClick={ () => { setSongPlaying(PlaylistSong.audio_file)} } className='playlist-songs' key={PlaylistSong.id}>
+                <img src={PlaylistSong.image} />
                 <p>{PlaylistSong.name}</p>
-                <audio src={PlaylistSong.audio_file} controls/>
             </div>
         ))
       }
+      </div>
+      <div>
+        <AudioPlayer src={songPlaying} />
       </div>
     </div>
   )

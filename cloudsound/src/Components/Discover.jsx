@@ -4,7 +4,8 @@ import { BASE_URL_SONGS } from "../globals"
 import {BASE_URL_PLAYLISTS} from '../globals'
 import axios from "axios"
 import comet from './images/Shape01.png'
-import Player from './AudioPlayer'
+import AudioPlayer from 'react-h5-audio-player' ;
+import  'react-h5-audio-player/lib/styles.css' ;
 
 // this is the landing page for signed in "state"
 
@@ -28,14 +29,7 @@ export default function Discover ( props ) {
         }
         getSongs()
     }, [])
-// ChangeAudio function does what it sounds like it does to the audio player
-    function ChangeAudio () {
-        const handleClick = (e) => {
-            
-        }
-        handleClick()
-    }
-    ChangeAudio()
+
 
     // for playlists 
     useEffect(() => {
@@ -45,6 +39,8 @@ export default function Discover ( props ) {
         }
         getPlaylists()
     }, [])
+
+    console.log(songPlaying)
 
     if(!songs){
         return(
@@ -63,8 +59,8 @@ export default function Discover ( props ) {
                 </div>
                 {
                     songs.map((song) => (
-                        <div className="song-card" key={song.id}>
-                        <img onClick={ChangeAudio} className="song-img" src={song.image} alt="song" />
+                        <div onClick={ () => { setSongPlaying(song.audio_file)} }  className="song-card" key={song.id}>
+                        <img className="song-img" src={song.image} alt="song" />
                         <h2>{song.name}</h2>
                         </div>
                     ))
@@ -77,15 +73,18 @@ export default function Discover ( props ) {
                 </div>
                 {
                     playlists.map((playlist) => (
-                        <div  onClick={() => showPlaylist(playlist.id)} className="song-card" key={playlist.id}>
+                        <div onClick={ () => showPlaylist(playlist.id)} className="song-card" key={playlist.id}>
                             <img src={playlist.image} alt="playlist" />
                             <h2>{playlist.name}</h2>
                         </div>
                     ))
                 }
             </div>
+            
             <div> 
-                <Player src={songPlaying} />
+                <AudioPlayer 
+                    src={songPlaying}
+                />
             </div>
         </div>
     )
