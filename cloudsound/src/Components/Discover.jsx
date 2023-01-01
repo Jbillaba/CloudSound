@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { BASE_URL_SONGS } from "../globals"
+import {BASE_URL_PLAYLISTS} from '../globals'
 import axios from "axios"
 import comet from './images/Shape01.png'
 
@@ -12,6 +13,7 @@ export default function Discover () {
  
 
     const [ songs, setSongs ] = useState(null)
+    const [ playlists, setPlaylists ] = useState(null)
 
     useEffect(() => {
         const getSongs = async () => {
@@ -21,6 +23,14 @@ export default function Discover () {
         getSongs()
     }, [])
 
+    useEffect(() => {
+        const getPlaylists = async () => {
+            const response = await axios.get(`${BASE_URL_PLAYLISTS}`)
+            setPlaylists(response.data)
+            console.log(response.data)
+        }
+        getPlaylists()
+    }, [])
 
 
     if(!songs){
@@ -46,6 +56,16 @@ export default function Discover () {
                 }
             </div>
 
+            <div className="discover-grid">
+                {
+                    playlists.map((playlist) => (
+                        <div className="song-card" key={playlist.id}>
+                            <img src={playlist.image} alt="playlist" />
+                            <h2>{playlist.name}</h2>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
     )
 }

@@ -10,9 +10,7 @@ export default function Main () {
         <div className="main">
             <Routes>
                 <Route exact path="/" element={<Debug />} />
-                <Route exact path="/discover" element={<PrivateRoute />}>
                 <Route exact path="/discover" element={<Discover />}/>
-                </Route>
                 <Route exact path="/upload" element={<PrivateRoute />}> 
                 <Route exact path="/upload" element={<Upload />} />
                 </Route>
