@@ -1,8 +1,6 @@
 import {useState, useEffect} from 'react'
-import {BASE_URL_PLAYLISTS} from '../globals'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-import { getDefaultNormalizer } from '@testing-library/react'
 
 
 const PlaylistDetails = () => {
@@ -33,7 +31,7 @@ if(!PlaylistDetails){
       <div>
       {
         PlaylistSongs.map((PlaylistSong) => (
-            <div className='playlist-songs'>
+            <div className='playlist-songs' key={PlaylistSong.id}>
                 <p>{PlaylistSong.name}</p>
                 <audio src={PlaylistSong.audio_file} controls/>
             </div>

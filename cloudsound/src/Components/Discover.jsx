@@ -18,6 +18,7 @@ export default function Discover ( props ) {
 
     const [ songs, setSongs ] = useState(null)
     const [ playlists, setPlaylists ] = useState(null)
+    const [ songPlaying , setSongPlaying ] = useState(null)
 
     // for songs 
     useEffect(() => {
@@ -27,6 +28,14 @@ export default function Discover ( props ) {
         }
         getSongs()
     }, [])
+// ChangeAudio function does what it sounds like it does to the audio player
+    function ChangeAudio () {
+        const handleClick = (e) => {
+            
+        }
+        handleClick()
+    }
+    ChangeAudio()
 
     // for playlists 
     useEffect(() => {
@@ -36,12 +45,6 @@ export default function Discover ( props ) {
         }
         getPlaylists()
     }, [])
-
-    function ChangeAudio () {
-        const handleClick = (e) => {
-            console.log("this should change the audio on the player ")
-        }
-    }
 
     if(!songs){
         return(
@@ -61,7 +64,7 @@ export default function Discover ( props ) {
                 {
                     songs.map((song) => (
                         <div className="song-card" key={song.id}>
-                        <img className="song-img" src={song.image} alt="song" />
+                        <img onClick={ChangeAudio} className="song-img" src={song.image} alt="song" />
                         <h2>{song.name}</h2>
                         </div>
                     ))
@@ -82,7 +85,7 @@ export default function Discover ( props ) {
                 }
             </div>
             <div> 
-                <Player src={props.audio_file} />
+                <Player src={songPlaying} />
             </div>
         </div>
     )
