@@ -4,11 +4,11 @@ import { BASE_URL_SONGS } from "../globals"
 import {BASE_URL_PLAYLISTS} from '../globals'
 import axios from "axios"
 import comet from './images/Shape01.png'
-import AudioPlayer from './AudioPlayer'
+import Player from './AudioPlayer'
 
 // this is the landing page for signed in "state"
 
-export default function Discover () {
+export default function Discover ( props ) {
 
     let navigate = useNavigate()
     
@@ -37,6 +37,11 @@ export default function Discover () {
         getPlaylists()
     }, [])
 
+    function ChangeAudio () {
+        const handleClick = (e) => {
+            console.log("this should change the audio on the player ")
+        }
+    }
 
     if(!songs){
         return(
@@ -58,7 +63,6 @@ export default function Discover () {
                         <div className="song-card" key={song.id}>
                         <img className="song-img" src={song.image} alt="song" />
                         <h2>{song.name}</h2>
-                        <audio src={song.audio_file} controls></audio>
                         </div>
                     ))
                 }
@@ -77,7 +81,8 @@ export default function Discover () {
                     ))
                 }
             </div>
-            <div> {/* this is the div where the audio player would go into */}
+            <div> 
+                <Player src={props.audio_file} />
             </div>
         </div>
     )
