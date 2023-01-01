@@ -4,6 +4,7 @@ import { BASE_URL_SONGS } from "../globals"
 import {BASE_URL_PLAYLISTS} from '../globals'
 import axios from "axios"
 import comet from './images/Shape01.png'
+import AudioPlayer from './AudioPlayer'
 
 // this is the landing page for signed in "state"
 
@@ -49,6 +50,9 @@ export default function Discover () {
         <div className="discover-container">
             <h1> this is the discover page </h1>
             <div className="discover-grid">
+                <div>
+                    <p>songs</p>
+                </div>
                 {
                     songs.map((song) => (
                         <div className="song-card" key={song.id}>
@@ -61,6 +65,9 @@ export default function Discover () {
             </div>
 
             <div className="discover-grid">
+                <div>
+                    <p>PlayLists</p>
+                </div>
                 {
                     playlists.map((playlist) => (
                         <div  onClick={() => showPlaylist(playlist.id)} className="song-card" key={playlist.id}>
@@ -69,6 +76,8 @@ export default function Discover () {
                         </div>
                     ))
                 }
+            </div>
+            <div> {/* this is the div where the audio player would go into */}
             </div>
         </div>
     )

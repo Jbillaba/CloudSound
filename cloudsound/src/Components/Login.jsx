@@ -3,7 +3,7 @@ import AuthContext from "../context/AuthContext"
 
 
 
-export default function User () {
+export default function Login () {
     let {loginUser} = useContext(AuthContext)
     
     return (

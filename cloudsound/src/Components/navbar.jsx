@@ -9,8 +9,8 @@ export default function NavBar () {
         <Link to='/upload'>
             <h2>Upload</h2>
         </Link>
-        <Link to='/user'>
-            <h2>User</h2>
+        <Link to='/login'>
+            <h2>login</h2>
         </Link>
         <Link to='/'>
             <h2>Debug</h2>
