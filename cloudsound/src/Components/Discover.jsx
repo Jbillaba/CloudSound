@@ -20,7 +20,6 @@ export default function Discover ( props ) {
     const [ songs, setSongs ] = useState(null)
     const [ playlists, setPlaylists ] = useState(null)
     const [ songPlaying , setSongPlaying ] = useState(null)
-    const [ songQue, setSongQue ] = useState([...songPlaying])
 
     // for songs 
     useEffect(() => {
@@ -41,7 +40,6 @@ export default function Discover ( props ) {
         getPlaylists()
     }, [])
 
-    console.log(songPlaying)
 
     if(!songs){
         return(
