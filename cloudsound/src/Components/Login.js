@@ -1,11 +1,18 @@
 import {useContext} from 'react'
+import { useNavigate } from 'react-router-dom'
 import AuthContext from "../context/AuthContext"
 
 
 
 export default function Login () {
     let {loginUser} = useContext(AuthContext)
-    let {user} = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    const routeChange = () => {
+        let path = '/register'
+        navigate(path)
+    }
+    
     return (
         <div>
          <form onSubmit={loginUser}>
@@ -13,6 +20,8 @@ export default function Login () {
             <input type="password" name ="password" placeholder='Enter Your password' />
             <input type="submit" />
         </form>
+
+        <button onClick={routeChange}> Register </button>
         </div>
     )
 }

@@ -67,12 +67,13 @@ export const AuthProvider = ({children}) => {
     }
 
     useEffect(() => {
+        let fourminutes = 1000 * 60 * 4
        let interval = setInterval(() => {
             if(authTokens){
                 updateToken()
             }
             //method is called every two seconds
-        }, 2000)
+        }, fourminutes)
         //ensures we dont go in a infinite loop 
         return ()=> clearInterval(interval)
     }, [authTokens, loading] )
