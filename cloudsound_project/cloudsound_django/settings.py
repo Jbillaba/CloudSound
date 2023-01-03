@@ -17,6 +17,7 @@ from storages.backends.s3boto3 import S3Boto3Storage
 from dotenv import load_dotenv, find_dotenv 
 from datetime import timedelta
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'cloudsound', 'templates')
@@ -51,6 +52,8 @@ INSTALLED_APPS = [
     'storages',
     'rest_framework_simplejwt.token_blacklist',
 ]
+
+AUTH_USER_MODEL = "cloudsound.User"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':(
