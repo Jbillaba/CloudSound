@@ -1,21 +1,16 @@
 import './App.css';
-import Discover from './Components/Discover';
-import Landing from './Components/Landing';
 import Main from './Components/Main';
 import NavBar from './Components/navbar';
+import {AuthProvider} from './context/AuthContext'
+
 
 function App() {
   return (
-    <div className="App" 
-      onContextMenu={(e) => {
-        // e.preventDefault() //this prevents right click normal behavior 
-        // console.log("right click")
-      }}
-    >
-      
+    <div className="App" >
+    <AuthProvider>
       <NavBar />
       <Main/>
-        
+    </AuthProvider>
     </div>
   );
 }

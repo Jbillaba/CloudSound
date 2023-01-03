@@ -5,13 +5,13 @@ import AuthContext from "../context/AuthContext"
 
 export default function Login () {
     let {loginUser} = useContext(AuthContext)
-    
+    let {user} = useContext(AuthContext)
     return (
         <div>
          <form onSubmit={loginUser}>
-            <input type="email" name ="email" placeholder='Enter Your email' />
+            <input type="text" name ="username" placeholder='Enter Your username' />
             <input type="password" name ="password" placeholder='Enter Your password' />
-            <input type="submit" value="submit"></input>
+            <input type="submit" />
         </form>
         </div>
     )

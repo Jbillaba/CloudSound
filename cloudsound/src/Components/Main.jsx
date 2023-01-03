@@ -3,6 +3,7 @@ import Discover from "./Discover";
 import Upload from "./Upload";
 import Debug from "./Debug";
 import Login from "./Login";
+import Logout from './logout'
 import PrivateRoute from '../utils/PrivateRoute'
 import PlaylistDetails from "./PlaylistDetails";
 
@@ -16,6 +17,7 @@ export default function Main () {
                 <Route exact path="/upload" element={<PrivateRoute />}> 
                 <Route exact path="/upload" element={<Upload />} />
                 </Route>
+                <Route exact path="/logout" element={<Logout />} />
                 <Route exact path="/Login" element={<Login />} />
             </Routes>
         </div>

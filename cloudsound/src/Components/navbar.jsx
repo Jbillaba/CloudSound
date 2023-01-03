@@ -1,20 +1,21 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import AuthContext from "../context/AuthContext"
 
 export default function NavBar () {
+    let {user} = useContext(AuthContext)
     return (
        <ul className="nav-bar">
-        <Link to='/discover'>
-            <h2>Discover</h2>
-        </Link>
-        <Link to='/upload'>
-            <h2>Upload</h2>
-        </Link>
-        <Link to='/login'>
-            <h2>login</h2>
-        </Link>
-        <Link to='/'>
-            <h2>Debug</h2>
-        </Link>
+        <Link to='/discover'>Discover</Link>
+        <Link to='/upload'>Upload</Link>
+        
+        {user ? (
+            <p>Logout</p>
+        ): (
+            <Link to='/login'>Login</Link>
+        )}
+
+        <Link to='/'>Debug</Link>
        </ul>
     )
 }
