@@ -10,6 +10,7 @@ export const AuthProvider = ({children}) => {
 
     let [authTokens, setAuthTokens] = useState(localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     let [user, setUser] = useState(localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null)
+    let [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
 
@@ -40,11 +41,42 @@ export const AuthProvider = ({children}) => {
         navigate('/login')
     }
 
+    let updateToken = async (e) => {
+        console.log('update token called')
+        let response = await fetch('http://localhost:8000/api/token/refresh/',{ 
+        method:'POST', 
+        headers: {
+            'content-type':'application/json'
+        }, 
+        body:JSON.stringify({'refresh':authTokens.refresh})
+    }) 
+        let data = await response.json()
+        if (response.status === 200){
+            setAuthTokens(data)
+            setUser(jwtDecode(data.access))
+            localStorage.setItem('authTokens', JSON.stringify(data))
+        } else {
+            logoutUser()
+        }
+    }
+
     let contextData = {
         user:user,
        loginUser:loginUser,
        logoutUser:logoutUser
     }
+
+    useEffect(() => {
+       let interval = setInterval(() => {
+            if(authTokens){
+                updateToken()
+            }
+            //method is called every two seconds
+        }, 2000)
+        //ensures we dont go in a infinite loop 
+        return ()=> clearInterval(interval)
+    }, [authTokens, loading] )
+
     return (
         <AuthContext.Provider value={contextData}>
             {children}
