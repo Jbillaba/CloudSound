@@ -1,6 +1,8 @@
 from rest_framework import viewsets, parsers, generics
+from rest_framework.viewsets import ViewSet
+from rest_framework.response import Response 
 from rest_framework.permissions import AllowAny 
-from .serializers import SongSerializer, UserSerializer, PlaylistSerializer, RegisterSerializer
+from .serializers import SongSerializer, UserSerializer, PlaylistSerializer, RegisterSerializer, UploadSongSerializer
 from .models import Song,User,playlist
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -47,3 +49,18 @@ class RegisterView(generics.CreateAPIView):
     query_set = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer 
+
+class UploadSongViewSet(ViewSet):
+    queryset = Song.objects.all()
+    serializer_class = UploadSongSerializer
+
+    def list(self, request):
+        return Response("GET API")
+
+    def create(self, request):
+        image = request.FILES.get('image')
+        audio_file = request.FILES.get('audio_file')
+        img_content_type = image.content_type
+        song_content_type = audio_file.content_type
+        response = "POST API and you have uploaded a {} file and a {} file".format(img_content_type)
+        return response

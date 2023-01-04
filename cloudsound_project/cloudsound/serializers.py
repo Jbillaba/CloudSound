@@ -1,4 +1,5 @@
-from rest_framework import serializers 
+from rest_framework import serializers
+from rest_framework.serializers import Serializer, FileField
 from .models import Song, User, playlist
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
@@ -32,7 +33,6 @@ class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
-    # password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
@@ -49,3 +49,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class UploadSongSerializer(Serializer):
+    name = serializers.CharField( required=True )
+    image = serializers.FileField()
+    audio_file = serializers.FileField(required=True)
+    uploader = serializers.Field(source='User.id', label="uploader")
+
+    class Meta:
+        model = Song
+        fields = ( 'name', 'image', 'audio_file', 'uploader')
