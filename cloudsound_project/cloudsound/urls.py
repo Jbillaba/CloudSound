@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet
+from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet, RegisterView
 from . import views
 from django.contrib import admin 
 from .views import MyTokenObtainPairView
@@ -58,6 +58,7 @@ urlpatterns = [
   path('admin/', admin.site.urls),
   path('api/', include('rest_framework.urls')),
   path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+  path('api/register/', RegisterView.as_view(), name='register_view'),
   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 
 ] 

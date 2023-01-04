@@ -1,5 +1,6 @@
-from rest_framework import viewsets, parsers
-from .serializers import SongSerializer, UserSerializer, PlaylistSerializer
+from rest_framework import viewsets, parsers, generics
+from rest_framework.permissions import AllowAny 
+from .serializers import SongSerializer, UserSerializer, PlaylistSerializer, RegisterSerializer
 from .models import Song,User,playlist
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -40,3 +41,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+class RegisterView(generics.CreateAPIView):
+    query_set = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer 
