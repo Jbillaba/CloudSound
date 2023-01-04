@@ -34,6 +34,31 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    let registerUser = async (e) => { 
+        e.preventDefault()
+        let response = await fetch('http://localhost:8000/api/register/', {
+            method:'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body:JSON.stringify({
+                'name':e.target.name.value,
+                'email':e.target.email.value,
+                'username':e.target.username.value,
+                'password':e.target.password.value,
+            })
+        })
+           if(response.status === 200){
+            alert("user created succesfully")
+            navigate('/login')
+           } else if(response.status >= 400 ){
+            alert("something went wrong, try again")
+           } 
+        } 
+            
+
+
+
     let logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
@@ -63,7 +88,8 @@ export const AuthProvider = ({children}) => {
     let contextData = {
         user:user,
        loginUser:loginUser,
-       logoutUser:logoutUser
+       logoutUser:logoutUser,
+       registerUser:registerUser
     }
 
     useEffect(() => {
