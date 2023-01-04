@@ -8,7 +8,7 @@ def generateUUID():
 class User(AbstractUser):
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(max_length=200, unique=True)
+    email = models.EmailField(max_length=200)
     password = models.CharField(max_length=50)
 
     def __str__(self):
