@@ -104,12 +104,7 @@ export const AuthProvider = ({children}) => {
     }
     const csrftoken = getCookie('csrftoken');
 
-    if(user){
-    let userinfo = jwtDecode(authTokens.access)
-    let username = userinfo.username
-    console.log(`hello, ${username}`)
-    }
-    
+   
     let uploadSong = async (e) => {
         e.preventDefault()
         let response = await fetch('http://localhost:8000/songs/', {
@@ -123,7 +118,6 @@ export const AuthProvider = ({children}) => {
                 'name':e.target.name.value,
                 'image':e.target.image.value,
                 'audio_file':e.target.audio_file.value,
-                "uploader": e.target.username
 
             })
         })
@@ -152,6 +146,7 @@ export const AuthProvider = ({children}) => {
         let fourminutes = 1000 * 60 * 4
        let interval = setInterval(() => {
             if(authTokens){
+                console.log("updated")
                 updateToken()
             }
             //method is called every two seconds

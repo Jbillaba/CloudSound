@@ -53,9 +53,6 @@ export default function Discover ( props ) {
         <div className="discover-container">
             <h1> this is the discover page </h1>
             <div className="discover-grid">
-                <div>
-                    <p>songs</p>
-                </div>
                 {
                     songs.map((song) => (
                         <div onClick={ () => { setSongPlaying(song.audio_file)} }  className="song-card" key={song.id}>
@@ -67,13 +64,10 @@ export default function Discover ( props ) {
             </div>
 
             <div className="discover-grid">
-                <div>
-                    <p>PlayLists</p>
-                </div>
                 {
                     playlists.map((playlist) => (
                         <div onClick={ () => showPlaylist(playlist.id)} className="song-card" key={playlist.id}>
-                            <img src={playlist.image} alt="playlist" />
+                            <img className="song-img" src={playlist.image} alt="playlist" />
                             <h2>{playlist.name}</h2>
                         </div>
                     ))

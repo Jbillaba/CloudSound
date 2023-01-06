@@ -1,12 +1,12 @@
+import jwtDecode from "jwt-decode"
 import { useContext } from "react"
 import AuthContext from "../context/AuthContext"
 
 export default function Debug () {
 
-    return (
+    return( 
         <div>
-            <h1> welcome back,  </h1>
+            <h1>welcome </h1>
         </div>
-
     )
 }

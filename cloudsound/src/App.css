@@ -24,8 +24,10 @@
   font-size: large;
 }
 .discover-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  overflow: auto;
   padding: 0.5em;
   margin: 1em;
 }
