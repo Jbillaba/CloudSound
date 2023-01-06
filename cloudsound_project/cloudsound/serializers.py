@@ -14,10 +14,25 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
-
+    content_type ='multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+    name = serializers.CharField(required=False )
+    image = serializers.FileField(required=False)
+    audio_file = serializers.FileField(required=False)
     class Meta :
         model = Song
-        fields = ('id',  'image', 'name', 'uploader', 'audio_file', 'created_on')
+        fields = ('id',  'image', 'name', 'audio_file', 'created_on')
+    
+    def create(self, validated_data):
+        song = Song.objects.create(
+            name=validated_data.get('name'),
+            image=validated_data.get('image'),
+            audio_file=validated_data.get('audio_file'),
+        )
+
+        song.save()
+
+        return song
+
 
 class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
     songs = SongSerializer(

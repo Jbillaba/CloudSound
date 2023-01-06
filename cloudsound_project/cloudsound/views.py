@@ -12,20 +12,21 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 # create views here 
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
+    content_type ='multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
     serializer_class = SongSerializer
-    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser]
     http_method_names = ['get', 'post', 'patch', 'delete']
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser, parsers.FileUploadParser]
     http_method_names = ['get', 'post', 'patch', 'delete']
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = playlist.objects.all()
     serializer_class = PlaylistSerializer
-    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser, parsers.FileUploadParser]
     http_method_names = ['get', 'post', 'patch', 'delete']
 
 # jwt 
@@ -37,6 +38,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['email'] = User.email
+        token['username'] = User.username
         # ...
 
         return token 
@@ -50,7 +52,7 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer 
 
-class UploadSongViewSet(ViewSet):
+class UploadView(generics.CreateAPIView):
     queryset = Song.objects.all()
     serializer_class = UploadSongSerializer
 

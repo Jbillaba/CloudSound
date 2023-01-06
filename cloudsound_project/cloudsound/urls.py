@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet, RegisterView, UploadSongViewSet
+from cloudsound.views import SongViewSet, UserViewSet, PlaylistViewSet, RegisterView, UploadView
 from . import views
 from django.contrib import admin 
 from .views import MyTokenObtainPairView
@@ -53,12 +53,12 @@ playlist_detail = PlaylistViewSet.as_view({
 router = DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'songs', views.SongViewSet)
-router.register(r'songsupload', views.UploadSongViewSet)
 router.register(r'playlists', views.PlaylistViewSet)
 
 urlpatterns = [
   path('', include(router.urls)),
   path('admin/', admin.site.urls),
+  path('upload/', UploadView.as_view(), name='song upload'),
   path('api/', include('rest_framework.urls')),
   path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
   path('api/register/', RegisterView.as_view(), name='register_view'),

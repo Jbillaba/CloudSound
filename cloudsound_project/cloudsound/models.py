@@ -16,7 +16,6 @@ class User(AbstractUser):
 
 class Song(models.Model):
     name = models.CharField(max_length=100)
-    uploader = models.ForeignKey(User, on_delete=models.CASCADE, related_name="artist" )
     image = models.FileField(upload_to='./media/', default='./media/default-cover-art_tVe9r28.png')
     audio_file = models.FileField(upload_to='./media/')
     created_on = models.DateTimeField(auto_now_add=True)

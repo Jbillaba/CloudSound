@@ -34,7 +34,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
+CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,24 +55,25 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "cloudsound.User"
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES':(
-
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+
+        'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+
+    )
 }
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -116,8 +117,12 @@ CORS_ALLOWED_ORIGINS = [
     "https://example.com",
     "https://sub.example.com",
     "http://localhost:8080",
+    'https://localhost:3000',
     "http://127.0.0.1:9000",
 ]
+CORS_ORIGIN_WHITELIST =(
+    'https://localhost:3000'
+)
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
