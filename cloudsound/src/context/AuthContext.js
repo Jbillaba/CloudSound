@@ -104,7 +104,6 @@ export const AuthProvider = ({children}) => {
     }
     const csrftoken = getCookie('csrftoken');
 
-   
     let uploadSong = async (e) => {
         e.preventDefault()
         let response = await fetch('http://localhost:8000/songs/', {
@@ -121,10 +120,8 @@ export const AuthProvider = ({children}) => {
 
             })
         })
-        let data = await response.json()
         if(response.status === 200){
             alert("song uploaded!")
-            return data 
         } else { 
             console.log(response)
             alert("something went wrong!")

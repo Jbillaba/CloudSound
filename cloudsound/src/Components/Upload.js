@@ -1,12 +1,9 @@
-import jwtDecode from "jwt-decode"
-import { useState } from "react"
+
 import { useContext } from "react"
 import AuthContext from "../context/AuthContext"
 
 export default function Upload () {
-let {uploadSong, authtokens } = useContext(AuthContext)
-    
-
+let {uploadSong } = useContext(AuthContext)
     return (
         <div>
             <h1>Upload A Song</h1>
@@ -17,7 +14,7 @@ let {uploadSong, authtokens } = useContext(AuthContext)
                         <p> enter audio file... </p>
                         <input type='file' name='audio_file' accept='audio/*'/>
                         <br />
-                        <input id="submit-button" type="submit"/>
+                        <input  type="submit"/>
                 </form>
         </div>
     )

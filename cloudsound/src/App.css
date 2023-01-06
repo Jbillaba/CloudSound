@@ -18,10 +18,18 @@
     transform: rotate(359deg);
   }
 }
+a{
+  text-decoration: none;
+}
+a:visited{
+  text-decoration: none;
+  color: lightgray;
+}
 .nav-bar{
+  color: lightgray;
+  font-size: 30px;
   margin: 0;
-  padding: 0;
-  font-size: large;
+  display: inline;
 }
 .discover-grid {
   display: flex;

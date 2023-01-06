@@ -67,8 +67,8 @@ export default function Discover ( props ) {
                 {
                     playlists.map((playlist) => (
                         <div onClick={ () => showPlaylist(playlist.id)} className="song-card" key={playlist.id}>
-                            <img className="song-img" src={playlist.image} alt="playlist" />
                             <h2>{playlist.name}</h2>
+                            <img className="song-img" src={playlist.image} alt="playlist" />
                         </div>
                     ))
                 }
