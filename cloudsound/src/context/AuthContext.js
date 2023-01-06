@@ -103,16 +103,18 @@ export const AuthProvider = ({children}) => {
         return cookieValue;
     }
     const csrftoken = getCookie('csrftoken');
-    
-
-
+    if(user){
+    let userinfo = jwtDecode(authTokens.access)
+    let username = userinfo.username
+    console.log(`hello, ${username}`)
+    }
 
     let uploadSong = async (e) => {
         e.preventDefault()
         let response = await fetch('http://localhost:8000/songs/', {
             method:'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'content-type':'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
                 'Authorization': 'Bearer ' + String(authTokens.access),
                 'X-CSRFToken': csrftoken
             },
@@ -120,6 +122,7 @@ export const AuthProvider = ({children}) => {
                 'name':e.target.name.value,
                 'image':e.target.image.value,
                 'audio_file':e.target.audio_file.value,
+                "uploader": e.target.username
 
             })
         })
@@ -141,7 +144,7 @@ export const AuthProvider = ({children}) => {
        loginUser:loginUser,
        logoutUser:logoutUser,
        registerUser:registerUser,
-       uploadSong:uploadSong
+       uploadSong:uploadSong,
     }
 
     useEffect(() => {
