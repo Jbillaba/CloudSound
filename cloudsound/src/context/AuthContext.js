@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode';
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
 
 const AuthContext = createContext()
 export default AuthContext;
@@ -67,7 +68,6 @@ export const AuthProvider = ({children}) => {
     }
 
     let updateToken = async (e) => {
-        console.log('update token called')
         let response = await fetch('http://localhost:8000/api/token/refresh/',{ 
         method:'POST', 
         headers: {
@@ -85,24 +85,28 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+    let uploadSong = async (e) => {
+        e.preventDefault()
+        let response = await fetch('http://localhost:8000/songs/', {
+            method:'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access),
+            },
+            body:JSON.stringify({
+                'name':e.target.name.value,
+                'image':e.target.image.value,
+                'audio_file':e.target.audio_file.value,
+            })
+        })
+        let data = await response.json()
+        if(response.status === 200){
+            alert("song uploaded!")
+            return data 
+        } else { 
+            alert("something went wrong!")
         }
-        return cookieValue;
     }
-    const csrftoken = getCookie('csrftoken');
-    console.log(csrftoken)
 
 
 
@@ -112,7 +116,8 @@ export const AuthProvider = ({children}) => {
         user:user,
        loginUser:loginUser,
        logoutUser:logoutUser,
-       registerUser:registerUser
+       registerUser:registerUser,
+       uploadSong:uploadSong
     }
 
     useEffect(() => {
