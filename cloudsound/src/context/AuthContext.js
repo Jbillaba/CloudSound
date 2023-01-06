@@ -1,10 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode';
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN" ;
-axios.defaults.xsrfCookieName = "csfrtoken";
-
+import Upload from '../Components/Upload';
 
 const AuthContext = createContext()
 export default AuthContext;
@@ -15,7 +12,6 @@ export const AuthProvider = ({children}) => {
     let [authTokens, setAuthTokens] = useState(localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
     let [user, setUser] = useState(localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null)
     let [loading, setLoading] = useState(true)
-    
 
     const navigate = useNavigate()
 
@@ -87,34 +83,19 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const csfrtoken = getCookie('csfrtoken');
+    // from this point onward itll be functions to allow the app to function like song uploads and playlist creation 
 
     let uploadSong = async (e) => {
         let response = await fetch('http://localhost:8000/songs/', {
             method:"POST",
             headers: {
                 'content-type':'application/json',
-                'X-CRFSTOKEN': csfrtoken
+                'Authorization': authTokens
             },
             body:JSON.stringify({
                 'name':e.target.name.value, 
                 'image':e.target.image.value, 
-                'audio_file':e.target.audio_file.value,
+                'audio_file':e.target.audio_file.value
             })
         })
             if(response.status === 200){
@@ -132,14 +113,11 @@ export const AuthProvider = ({children}) => {
        uploadSong:uploadSong
     }
 
-
-
     useEffect(() => {
         let fourminutes = 1000 * 60 * 4
        let interval = setInterval(() => {
             if(authTokens){
                 updateToken()
-
             }
             //method is called every two seconds
         }, fourminutes)
