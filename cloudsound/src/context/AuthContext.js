@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode';
 import {useNavigate} from 'react-router-dom'
-import Upload from '../Components/Upload';
 
 const AuthContext = createContext()
 export default AuthContext;
@@ -40,8 +39,7 @@ export const AuthProvider = ({children}) => {
         let response = await fetch('http://localhost:8000/api/register/', {
             method:'POST',
             headers: {
-                'content-type': 'application/json',
-
+                'content-type': 'application/json'
             },
             body:JSON.stringify({
                 'name':e.target.name.value,
@@ -58,6 +56,9 @@ export const AuthProvider = ({children}) => {
            } 
         } 
             
+
+
+
     let logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
@@ -66,6 +67,7 @@ export const AuthProvider = ({children}) => {
     }
 
     let updateToken = async (e) => {
+        console.log('update token called')
         let response = await fetch('http://localhost:8000/api/token/refresh/',{ 
         method:'POST', 
         headers: {
@@ -83,34 +85,11 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    // from this point onward itll be functions to allow the app to function like song uploads and playlist creation 
-
-    let uploadSong = async (e) => {
-        let response = await fetch('http://localhost:8000/songs/', {
-            method:"POST",
-            headers: {
-                'content-type':'application/json',
-                'Authorization': authTokens
-            },
-            body:JSON.stringify({
-                'name':e.target.name.value, 
-                'image':e.target.image.value, 
-                'audio_file':e.target.audio_file.value
-            })
-        })
-            if(response.status === 200){
-                alert("song uploaded successfully !")
-            } else if(response.status >= 400){
-                alert("something went wrong, try again ")
-            }
-    }
-
     let contextData = {
         user:user,
        loginUser:loginUser,
        logoutUser:logoutUser,
-       registerUser:registerUser,
-       uploadSong:uploadSong
+       registerUser:registerUser
     }
 
     useEffect(() => {
