@@ -82,6 +82,7 @@ export default function Discover ( props ) {
             
             <div> 
                 <AudioPlayer 
+                className="audioPlayer"
                     src={songPlaying}
                 />
             </div>

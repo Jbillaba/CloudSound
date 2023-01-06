@@ -35,3 +35,7 @@
 .song-card:hover{
   transform: scale(1.1);
 }
+.audioPlayer{
+  position: fixed;
+  bottom: 0;
+}

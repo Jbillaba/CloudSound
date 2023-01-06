@@ -103,12 +103,13 @@ export const AuthProvider = ({children}) => {
         return cookieValue;
     }
     const csrftoken = getCookie('csrftoken');
+
     if(user){
     let userinfo = jwtDecode(authTokens.access)
     let username = userinfo.username
     console.log(`hello, ${username}`)
     }
-
+    
     let uploadSong = async (e) => {
         e.preventDefault()
         let response = await fetch('http://localhost:8000/songs/', {
