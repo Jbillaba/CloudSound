@@ -85,18 +85,42 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+    
+
+
+
     let uploadSong = async (e) => {
         e.preventDefault()
         let response = await fetch('http://localhost:8000/songs/', {
             method:'POST',
             headers: {
-                'content-type': 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + String(authTokens.access),
+                'X-CSRFToken': csrftoken
             },
             body:JSON.stringify({
                 'name':e.target.name.value,
                 'image':e.target.image.value,
                 'audio_file':e.target.audio_file.value,
+
             })
         })
         let data = await response.json()
@@ -104,10 +128,10 @@ export const AuthProvider = ({children}) => {
             alert("song uploaded!")
             return data 
         } else { 
+            console.log(response)
             alert("something went wrong!")
         }
     }
-
 
 
 
