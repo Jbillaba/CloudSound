@@ -593,14 +593,41 @@ video {
   }
 }
 
+a{
+  text-decoration: none;
+}
+
+a:visited{
+  text-decoration: none;
+  color: lightgray;
+}
+
+.nav-bar{
+  color: lightgray;
+  font-size: 30px;
+  margin: 0;
+  display: inline;
+}
+
 .discover-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  overflow: auto;
   padding: 0.5em;
   margin: 1em;
+}
+
+.song-img{
+  width: 300px;
 }
 
 .song-card:hover{
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+.audioPlayer{
+  position: fixed;
+  bottom: 0;
 }
