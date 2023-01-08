@@ -10,12 +10,20 @@ export default function NavBar () {
         <Link to='/upload'>Upload</Link>
         
         {user ? (
+            <Link to='/profile'>profile</Link>
+            
+        ): (
+            null
+        )}
+
+        {user ? (
             <p className="nav-bar" onClick={logoutUser}>Logout</p>
         ): (
             <Link to='/login'>Login</Link>
         )}
+        
 
-        <Link to='/'>Debug</Link>
+
        </div>
     )
 }

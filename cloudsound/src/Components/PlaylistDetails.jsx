@@ -41,7 +41,9 @@ if(!PlaylistDetails){
       }
       </div>
       <div>
-        <AudioPlayer src={songPlaying} />
+        <AudioPlayer 
+        className='audioPlayer'
+        src={songPlaying} />
       </div>
     </div>
   )

@@ -1,13 +1,9 @@
 import { createContext, useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode';
 import {Form, useNavigate} from 'react-router-dom'
-import axios from 'axios';
-import { findByPlaceholderText } from '@testing-library/react';
 
 const AuthContext = createContext()
 export default AuthContext;
-
-
 
 export const AuthProvider = ({children}) => {
 
@@ -60,8 +56,6 @@ export const AuthProvider = ({children}) => {
         } 
             
 
-
-
     let logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
@@ -87,8 +81,6 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-
-
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -105,15 +97,16 @@ export const AuthProvider = ({children}) => {
         return cookieValue;
     }
     const csrftoken = getCookie('csrftoken');
-    
+
     let uploadSong = async (e) => { 
+        let username = user.username
         e.preventDefault();
-      
         const formData = new FormData();
         formData.append('image', e.target.image.files[0]);
         formData.append('name', e.target.name.value);
         formData.append('audio_file', e.target.audio_file.files[0]);
-      
+        formData.append('uploader', username.value)
+        
         let response = await fetch('http://localhost:8000/songs/', {
           method: 'POST',
           headers: {
@@ -122,14 +115,38 @@ export const AuthProvider = ({children}) => {
           },
           body: formData
         });
-        if (response.status === 200) {
+        if (response.status === 201) {
           alert("song uploaded!")
         } else { 
-          console.log(response)
           alert("something went wrong!")
         }
       }
-      
+
+      let makePlaylist = async (e) => {
+        e.preventDefault()
+        const formData = new FormData();
+        formData.append('image', e.target.image.files[0]);
+        // makes an array of songs from ithe input value of it 
+        let songs = e.target.songs.value.split(",").map(song => song.trim());
+        // now we just it to the formdata thingy
+        formData.append('songs', songs)
+        formData.append('name', e.target.name.value)
+
+        let response = await fetch('http://localhost:8000/playlists/', {
+            method:"POST",
+            headers: {
+                'Authorization': 'Bearer ' + String(authTokens.access),
+                'X-CSRFToken': csrftoken
+            },
+            body: formData
+        });
+        if (response.status === 201){
+            alert("Playlist created !")
+        } else {
+            alert('Something Went Wrong')
+        }
+      }
+
 
     let contextData = {
         user:user,
@@ -137,6 +154,7 @@ export const AuthProvider = ({children}) => {
        logoutUser:logoutUser,
        registerUser:registerUser,
        uploadSong:uploadSong,
+       makePlaylist:makePlaylist
     }
 
     useEffect(() => {
