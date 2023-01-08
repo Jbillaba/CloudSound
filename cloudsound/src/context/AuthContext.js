@@ -1,10 +1,12 @@
 import { createContext, useState, useEffect } from 'react'
 import jwtDecode from 'jwt-decode';
-import {useNavigate} from 'react-router-dom'
+import {Form, useNavigate} from 'react-router-dom'
 import axios from 'axios';
+import { findByPlaceholderText } from '@testing-library/react';
 
 const AuthContext = createContext()
 export default AuthContext;
+
 
 
 export const AuthProvider = ({children}) => {
@@ -103,33 +105,31 @@ export const AuthProvider = ({children}) => {
         return cookieValue;
     }
     const csrftoken = getCookie('csrftoken');
-
-    let uploadSong = async (e) => {
-        e.preventDefault()
+    
+    let uploadSong = async (e) => { 
+        e.preventDefault();
+      
+        const formData = new FormData();
+        formData.append('image', e.target.image.files[0]);
+        formData.append('name', e.target.name.value);
+        formData.append('audio_file', e.target.audio_file.files[0]);
+      
         let response = await fetch('http://localhost:8000/songs/', {
-            method:'POST',
-            headers: {
-                'content-type':'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
-                'Authorization': 'Bearer ' + String(authTokens.access),
-                'X-CSRFToken': csrftoken
-            },
-            body:JSON.stringify({
-                'name':e.target.name.value,
-                'image':e.target.image.value,
-                'audio_file':e.target.audio_file.value,
-
-            })
-        })
-        if(response.status === 200){
-            alert("song uploaded!")
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + String(authTokens.access),
+            'X-CSRFToken': csrftoken
+          },
+          body: formData
+        });
+        if (response.status === 200) {
+          alert("song uploaded!")
         } else { 
-            console.log(response)
-            alert("something went wrong!")
+          console.log(response)
+          alert("something went wrong!")
         }
-    }
-
-
-
+      }
+      
 
     let contextData = {
         user:user,
@@ -143,7 +143,6 @@ export const AuthProvider = ({children}) => {
         let fourminutes = 1000 * 60 * 4
        let interval = setInterval(() => {
             if(authTokens){
-                console.log("updated")
                 updateToken()
             }
             //method is called every two seconds
