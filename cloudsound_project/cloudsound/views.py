@@ -1,6 +1,8 @@
 from rest_framework import viewsets, parsers, generics
 from rest_framework.viewsets import ViewSet
-from rest_framework.response import Response 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import AllowAny 
 from .serializers import SongSerializer, UserSerializer, PlaylistSerializer, RegisterSerializer, UploadSongSerializer
 from .models import Song,User,playlist
@@ -12,10 +14,18 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 # create views here 
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
-    content_type ='multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+    content_type ='multipart/form-data'
     serializer_class = SongSerializer
-    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser, parsers.FileUploadParser]
     http_method_names = ['get', 'post', 'patch', 'delete']
+
+    @action(methods=['put'], detail=True, parser_classes=[FileUploadParser])
+    def upload_file(self, request, pk=None):
+        obj = self.get_object()
+        obj.file = request.data['file']
+        obj.save()
+        return Response(status=204)
+    
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -28,7 +38,6 @@ class PlaylistViewSet(viewsets.ModelViewSet):
     serializer_class = PlaylistSerializer
     parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.JSONParser, parsers.FileUploadParser]
     http_method_names = ['get', 'post', 'patch', 'delete']
-
 # jwt 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -54,15 +63,8 @@ class RegisterView(generics.CreateAPIView):
 
 class UploadView(generics.CreateAPIView):
     queryset = Song.objects.all()
+    permission_classes=(AllowAny,)
     serializer_class = UploadSongSerializer
 
-    def list(self, request):
-        return Response("GET API")
+    
 
-    def create(self, request):
-        image = request.FILES.get('image')
-        audio_file = request.FILES.get('audio_file')
-        img_content_type = image.content_type
-        song_content_type = audio_file.content_type
-        response = "POST API and you have uploaded a {} file and a {} file".format(img_content_type)
-        return response

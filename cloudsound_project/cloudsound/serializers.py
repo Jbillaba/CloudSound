@@ -3,6 +3,9 @@ from rest_framework.serializers import Serializer, FileField
 from .models import Song, User, playlist
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from cloudsound.middleware.base64serializer import AudioBase64File
+from drf_extra_fields.fields import Base64ImageField
+
 
 # ran into a bug where the data wouldnt get rendered on screen fixed it with this article https://stackoverflow.com/questions/71721307/got-attributeerror-when-attempting-to-get-a-value-for-field-on-serializer
 
@@ -15,18 +18,19 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     content_type ='multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
-    name = serializers.CharField(required=False )
-    image = serializers.FileField(required=False)
-    audio_file = serializers.FileField(required=False)
+    name = serializers.CharField(required=True)
+    image = serializers.FileField(required=True)
+    audio_file = serializers.FileField(required=True)
+    uploader=serializers.CharField(required=True)
     class Meta :
         model = Song
-        fields = ('id',  'image', 'name', 'audio_file', 'created_on')
+        fields = ('id',  'image', 'uploader', 'name', 'audio_file', 'created_on')
     
     def create(self, validated_data):
         song = Song.objects.create(
-            name=validated_data.get('name'),
-            image=validated_data.get('image'),
-            audio_file=validated_data.get('audio_file'),
+            name=validated_data['name'],
+            image=validated_data['image'],
+            audio_file=validated_data['audio_file'],
         )
 
         song.save()
@@ -65,12 +69,21 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-class UploadSongSerializer(Serializer):
-    name = serializers.CharField( required=True )
-    image = serializers.FileField()
-    audio_file = serializers.FileField(required=True)
-    uploader = serializers.Field(source='User.id', label="uploader")
+class UploadSongSerializer(serializers.ModelSerializer):
+    content_type ='multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+    name = serializers.CharField()
+    image = serializers.FileField(default='./media/default-cover-art.png')
+    audio_file = serializers.FileField()
 
     class Meta:
         model = Song
-        fields = ( 'name', 'image', 'audio_file', 'uploader')
+        fields = ( 'name', 'image', 'audio_file')
+
+    def create(self, validated_data):
+        song = Song.objects.create(
+            name=validated_data['name'],
+            image=validated_data['image'],
+            audio_file=validated_data['audio_file']
+        )
+        song.save()
+        return song

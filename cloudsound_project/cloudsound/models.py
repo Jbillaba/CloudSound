@@ -15,9 +15,10 @@ class User(AbstractUser):
         return self.name
 
 class Song(models.Model):
-    name = models.CharField(max_length=100)
-    image = models.FileField(upload_to='./media/', default='./media/default-cover-art_tVe9r28.png')
-    audio_file = models.FileField(upload_to='./media/')
+    name = models.CharField(max_length=100, default="no name given", null=True )
+    image = models.FileField(upload_to='./media/', default='./media/default-cover-art_tVe9r28.png' )
+    audio_file = models.FileField(upload_to='./media/', default='./media/CloudSoundDefaultAudio.wav')
+    uploader = models.ForeignKey(User, on_delete=models.CASCADE, related_name='uploader', null=True )
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
