@@ -28,7 +28,7 @@ class playlist(models.Model):
     name = models.CharField (max_length=100)
     songs = models.ManyToManyField(Song, related_name='song_in_playlist')
     image = models.FileField(upload_to='./media/', default='./media/default-cover-art_tVe9r28.png')
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator' )
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator', null=True )
 
     def __str__(self):
         return self.name
