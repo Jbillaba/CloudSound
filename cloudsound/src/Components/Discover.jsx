@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Route, useNavigate } from "react-router-dom"
 import { BASE_URL_SONGS } from "../globals"
 import {BASE_URL_PLAYLISTS} from '../globals'
 import axios from "axios"
 import comet from './images/Shape01.png'
 import AudioPlayer from 'react-h5-audio-player' ;
 import  'react-h5-audio-player/lib/styles.css' ;
+import SongDetail from "./SongDetail"
 
 // this is the landing page for signed in "state"
 
@@ -15,6 +16,10 @@ export default function Discover ( props ) {
     
     const showPlaylist = (id) => {
         navigate(`/playlists/${id}`)
+    }
+
+    const RouteToSong = (id) => {
+        navigate(`/songs/${id}`)
     }
 
     const [ songs, setSongs ] = useState(null)
@@ -50,6 +55,11 @@ export default function Discover ( props ) {
         ) 
     }
     return (
+        <div className="regualar">
+            <div className="left">
+            </div>
+            <div className="right">
+            </div>
         <div className="discover-container">
             <h1> this is the discover page </h1>
             <div className="discover-grid">
@@ -57,7 +67,9 @@ export default function Discover ( props ) {
                     songs.map((song) => (
                         <div onClick={ () => { setSongPlaying(song.audio_file)} }  className="song-card" key={song.id}>
                         <img className="song-img" src={song.image} alt="song" />
-                        <h2>{song.name}</h2>
+                        <div className="playable-tile-description">
+                        <p className="songName" onClick={ () => RouteToSong(song.id)} >{song.name}</p>
+                        </div>
                         </div>
                     ))
                 }
@@ -66,20 +78,23 @@ export default function Discover ( props ) {
             <div className="discover-grid">
                 {
                     playlists.map((playlist) => (
-                        <div onClick={ () => showPlaylist(playlist.id)} className="song-card" key={playlist.id}>
-                            <h2>{playlist.name}</h2>
+                        <div className="song-card" key={playlist.id}>
+                            <div className="playable-tile-description"> 
+                            <p onClick={ () => showPlaylist(playlist.id)} className="songName">{playlist.name}</p>
+                            </div>
                             <img className="song-img" src={playlist.image} alt="playlist" />
                         </div>
                     ))
                 }
             </div>
             
-            <div> 
+        </div>
+        <div className="audioplayer-container"> 
                 <AudioPlayer 
                 className="audioPlayer"
                     src={songPlaying}
                 />
             </div>
-        </div>
+      </div>
     )
 }

@@ -1,6 +1,6 @@
 import './App.css';
 import Main from './Components/Main';
-import NavBar from './Components/navbar';
+import Header from './Components/header';
 import {AuthProvider} from './context/AuthContext'
 
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App" >
     <AuthProvider>
-      <NavBar />
+      <Header />
       <Main/>
     </AuthProvider>
     </div>
