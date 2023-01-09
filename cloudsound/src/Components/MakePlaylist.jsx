@@ -37,17 +37,20 @@ const songOptions = songs.map(song => ({
 
   return (
     <div>
-      create a playlist 
+        <h1>Create A Playlist </h1>
       <br/>
       <br />
       <form onSubmit={makePlaylist}>
-        <input type="text" name='name' placeholder='Enter Playlist Name..'/>
+        <input className='text-field' type="text" name='name' placeholder='Enter Playlist Name..'/>
         <br/>
+        <br />
+        <label> add a image </label>
         <br />
         <input type="file" name='image' accept='image/*'/>
         <br />
         <br />
         <Select 
+        className='select-menu'
         name='songs'
         options={songOptions}
         placeholder="select song's"
