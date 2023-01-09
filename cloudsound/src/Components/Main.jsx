@@ -8,7 +8,6 @@ import Register from './Register'
 import PrivateRoute from '../utils/PrivateRoute'
 import PlaylistDetails from "./PlaylistDetails";
 import Playlist from './MakePlaylist'
-import SongDetail from "./SongDetail";
 
 export default function Main () {
     return (
@@ -19,7 +18,6 @@ export default function Main () {
                 <Route exact path="/discover" element={<Discover />}/>
                 <Route exact path="/playlist" element={<Playlist />} />
                 <Route exact path="/playlists/:id" element={<PlaylistDetails />} />
-                <Route exact path="/songs/:id" element={<SongDetail />} />
                 <Route exact path="/upload" element={<PrivateRoute />}> 
                 <Route exact path="/upload" element={<Upload />} />
                 </Route>

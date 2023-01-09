@@ -6,11 +6,11 @@ export default function NavBar () {
     let {user, logoutUser} = useContext(AuthContext)
     return (
        <div className="nav-bar">
-        <Link to='/discover'>Discover</Link>
-        <Link to='/upload'>Upload</Link>
+        <Link className="nav-links" to='/discover'>Discover </Link>
+        <Link className="nav-links" to='/upload'>Upload </Link>
         
         {user ? (
-            <Link to='/profile'>profile</Link>
+            <Link className="nav-links" to='/profile'>profile </Link>
             
         ): (
             null
@@ -19,7 +19,7 @@ export default function NavBar () {
         {user ? (
             <p className="nav-bar" onClick={logoutUser}>Logout</p>
         ): (
-            <Link to='/login'>Login</Link>
+            <Link className="nav-links" to='/login'>Login</Link>
         )}
         
 

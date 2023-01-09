@@ -27,14 +27,14 @@ if(!PlaylistDetails){
 } else {
   return (
     <div  className='playlist-details'>
-    <img src={PlaylistDetails.image} alt="" />
+    <img className='playlist-image' src={PlaylistDetails.image} alt="" />
       <h1 className='playlist-title'>{PlaylistDetails.name}</h1>
-      <p>songs</p>
-      <div>
+      <p>playlist</p>
+      <div className='playlist-songs'>
       {
         PlaylistSongs.map((PlaylistSong) => (
             <div onClick={ () => { setSongPlaying(PlaylistSong.audio_file)} } className='playlist-songs' key={PlaylistSong.id}>
-                <img src={PlaylistSong.image} />
+                <img className='playlist-song-image' src={PlaylistSong.image} />
                 <p>{PlaylistSong.name}</p>
             </div>
         ))
